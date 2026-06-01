@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Infografía Interactiva - Viva Color S.R.L.</title>
+  <style>
+    :root{
+      --bg:#0f172a;
+      --card:#ffffff;
+      --ink:#172033;
+      --muted:#64748b;
+      --blue:#2563eb;
+      --cyan:#06b6d4;
+      --green:#16a34a;
+      --amber:#f59e0b;
+      --red:#ef4444;
+      --violet:#7c3aed;
+      --pink:#db2777;
+      --soft:#f8fafc;
+      --shadow:0 18px 45px rgba(2, 6, 23, .18);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(59,130,246,.35), transparent 35%),
+        radial-gradient(circle at top right, rgba(219,39,119,.25), transparent 35%),
+        linear-gradient(135deg,#0f172a,#111827 40%,#020617);
+      color:var(--ink);
+    }
+    .progress{
+      position:fixed;top:0;left:0;height:6px;width:0%;z-index:30;
+      background:linear-gradient(90deg,var(--cyan),var(--pink),var(--amber));
+      box-shadow:0 0 18px rgba(34,211,238,.7);
+    }
+    .nav{
+      position:fixed;right:18px;top:50%;transform:translateY(-50%);z-index:20;
+      display:flex;flex-direction:column;gap:10px;
+    }
+    .dot{width:13px;height:13px;border-radius:50%;background:rgba(255,255,255,.45);border:2px solid rgba(255,255,255,.9);cursor:pointer;transition:.2s}
+    .dot:hover,.dot.active{transform:scale(1.35);background:#fff}
+    .wrap{max-width:1120px;margin:0 auto;padding:28px 18px 80px}
+    .hero{
+      min-height:92vh;display:grid;place-items:center;text-align:center;color:white;position:relative;
+    }
+    .badge{
+      display:inline-flex;gap:8px;align-items:center;padding:10px 15px;border-radius:999px;
+      background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);backdrop-filter:blur(10px);
+      font-weight:700;letter-spacing:.3px;
+    }
+    h1{font-size:clamp(44px,8vw,92px);line-height:.92;margin:22px 0 10px;letter-spacing:-4px}
+    .subtitle{font-size:clamp(19px,2.8vw,31px);color:#dbeafe;margin:0 auto 24px;max-width:850px}
+    .chips{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:28px}
+    .chip{background:white;color:#0f172a;border-radius:18px;padding:13px 16px;font-weight:800;box-shadow:var(--shadow)}
+    .scrollcue{position:absolute;bottom:26px;color:#e0f2fe;font-size:14px;opacity:.85}
+    section{margin:34px 0;padding:10px 0;scroll-margin-top:20px}
+    .section-title{color:white;margin:0 0 18px;display:flex;align-items:center;gap:13px;font-size:clamp(30px,5vw,54px);letter-spacing:-2px}
+    .num{display:inline-grid;place-items:center;min-width:54px;height:54px;border-radius:18px;background:white;color:#111827;box-shadow:var(--shadow)}
+    .grid{display:grid;gap:18px}
+    .grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .card{
+      background:rgba(255,255,255,.96);border-radius:30px;padding:26px;box-shadow:var(--shadow);border:1px solid rgba(255,255,255,.4);
+      transform:translateY(20px);opacity:0;transition:.6s ease;
+    }
+    .card.visible{transform:translateY(0);opacity:1}
+    .card h3{margin:0 0 12px;font-size:25px;color:#0f172a}
+    .card p{color:var(--muted);line-height:1.55;font-size:17px}
+    .big-icon{font-size:46px;margin-bottom:8px}
+    .kpi{font-size:38px;font-weight:900;letter-spacing:-1px;margin:7px 0;color:#0f172a}
+    .label{font-weight:800;color:#475569;text-transform:uppercase;font-size:13px;letter-spacing:.9px}
+    .timeline{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+    .tl{background:white;border-radius:24px;padding:20px;border-top:8px solid var(--blue);box-shadow:var(--shadow)}
+    .tl:nth-child(2){border-color:var(--cyan)}.tl:nth-child(3){border-color:var(--amber)}.tl:nth-child(4){border-color:var(--green)}
+    .tl b{display:block;font-size:20px;margin-bottom:6px}.tl span{color:var(--muted)}
+    .equation{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:12px;align-items:stretch;margin-top:18px}
+    .eqbox{background:#f8fafc;border:2px dashed #cbd5e1;border-radius:24px;padding:20px;text-align:center}
+    .eqbox strong{font-size:25px;display:block}.eqbox small{color:var(--muted);font-weight:700}.sign{display:grid;place-items:center;color:white;font-size:38px;font-weight:900}
+    ul.clean{padding:0;margin:13px 0 0;list-style:none}.clean li{padding:9px 0;border-bottom:1px solid #e2e8f0;font-weight:650;color:#334155}.clean li:last-child{border-bottom:0}
+    .bars{display:grid;gap:16px;margin-top:12px}.bar{background:#e2e8f0;border-radius:999px;overflow:hidden;height:26px}.fill{height:100%;width:0%;border-radius:999px;background:linear-gradient(90deg,var(--blue),var(--cyan));transition:1.4s ease}.fill.pink{background:linear-gradient(90deg,var(--pink),var(--amber))}.fill.green{background:linear-gradient(90deg,var(--green),var(--cyan))}
+    .compare{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:16px}.panel{border-radius:24px;padding:22px;background:#f8fafc;border:1px solid #e2e8f0}.panel h4{font-size:22px;margin:0 0 10px}.good{color:var(--green)}.warn{color:var(--amber)}
+    .traffic{display:flex;gap:14px;justify-content:center;margin:18px 0}.light{width:64px;height:64px;border-radius:50%;display:grid;place-items:center;color:white;font-weight:900;font-size:21px;box-shadow:inset 0 -6px 18px rgba(0,0,0,.18), var(--shadow)}.light.green{background:var(--green)}.light.amber{background:var(--amber)}.light.red{background:var(--red);opacity:.25}
+    .quote{font-size:clamp(24px,3.5vw,38px);font-weight:900;line-height:1.14;color:#0f172a;letter-spacing:-1px}
+    .buttons{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:25px}.btn{border:0;border-radius:16px;padding:13px 18px;font-weight:900;cursor:pointer;background:white;color:#0f172a;box-shadow:var(--shadow)}.btn.dark{background:#111827;color:white}.btn:hover{transform:translateY(-2px)}
+    details{background:#f8fafc;border-radius:20px;padding:17px;border:1px solid #e2e8f0}summary{font-weight:900;cursor:pointer;color:#0f172a}
+    footer{text-align:center;color:white;padding:35px 0 15px;opacity:.85}
+    @media(max-width:820px){.grid-3,.grid-2,.timeline,.equation,.compare{grid-template-columns:1fr}.sign{color:white}.nav{display:none}h1{letter-spacing:-2px}.hero{min-height:82vh}.wrap{padding-left:14px;padding-right:14px}}
+    @media print{body{background:white}.hero{color:#0f172a;min-height:auto;padding:40px 0}.subtitle,.section-title,footer{color:#0f172a}.nav,.progress,.buttons,.scrollcue{display:none}.card{opacity:1;transform:none;box-shadow:none;border:1px solid #ddd;break-inside:avoid}.tl{box-shadow:none}.wrap{max-width:none}}
+  </style>
+</head>
+<body>
+  <div class="progress" id="progress"></div>
+  <nav class="nav" aria-label="Navegación rápida">
+    <a class="dot" href="#inicio"></a><a class="dot" href="#empresa"></a><a class="dot" href="#patrimonial"></a><a class="dot" href="#economica"></a><a class="dot" href="#financiera"></a><a class="dot" href="#cierre"></a>
+  </nav>
+  <main class="wrap">
+    <header class="hero" id="inicio">
+      <div>
+        <div class="badge">🎨 Objeto Virtual de Aprendizaje · Fundamentos de Contabilidad</div>
+        <h1>Viva Color S.R.L.</h1>
+        <p class="subtitle">Infografía interactiva para comunicar la situación patrimonial, económica y financiera al <b>30/06/2026</b>.</p>
+        <div class="chips">
+          <div class="chip">🏢 Patrimonial</div><div class="chip">📈 Económica</div><div class="chip">💰 Financiera</div>
+        </div>
+        <div class="buttons">
+          <button class="btn" onclick="document.documentElement.requestFullscreen?.()">Pantalla completa</button>
+          <button class="btn dark" onclick="window.print()">Imprimir / Guardar PDF</button>
+        </div>
+      </div>
+      <div class="scrollcue">Deslizá hacia abajo ↓</div>
+    </header>
+
+    <section id="empresa">
+      <h2 class="section-title"><span class="num">0</span> ¿Quién es Viva Color?</h2>
+      <div class="grid grid-3">
+        <article class="card"><div class="big-icon">🗓️</div><div class="label">Inicio</div><div class="kpi">01/03/2026</div><p>La empresa inicia su primer ejercicio económico, que finaliza el 30 de junio de 2026.</p></article>
+        <article class="card"><div class="big-icon">👥</div><div class="label">Socios</div><div class="kpi">3</div><p>Lucía Fernández, Martín Gómez y Carla Ruiz constituyen la sociedad en partes iguales.</p></article>
+        <article class="card"><div class="big-icon">💵</div><div class="label">Capital social</div><div class="kpi">$15.000.000</div><p>El capital se integra mediante dinero, bienes de uso, mercaderías e inmueble.</p></article>
+      </div>
+      <div class="timeline" style="margin-top:20px">
+        <div class="tl"><b>Marzo</b><span>Constitución e integración de aportes.</span></div>
+        <div class="tl"><b>Abril</b><span>Apertura bancaria y organización financiera.</span></div>
+        <div class="tl"><b>Mayo</b><span>Compras, ventas e IVA.</span></div>
+        <div class="tl"><b>Junio</b><span>Cierre: arqueo, conciliación y estados contables.</span></div>
+      </div>
+    </section>
+
+    <section id="patrimonial">
+      <h2 class="section-title"><span class="num">1</span> Situación patrimonial</h2>
+      <div class="card">
+        <p class="quote">Muestra qué tiene la empresa, qué debe y cuál es la participación de los socios.</p>
+        <div class="equation">
+          <div class="eqbox"><strong>Activo</strong><small>Bienes y derechos</small></div><div class="sign">−</div>
+          <div class="eqbox"><strong>Pasivo</strong><small>Obligaciones</small></div><div class="sign">=</div>
+          <div class="eqbox"><strong>Patrimonio Neto</strong><small>Aporte + resultado</small></div>
+        </div>
+      </div>
+      <div class="grid grid-3" style="margin-top:18px">
+        <article class="card"><div class="big-icon">📦</div><h3>Activo</h3><ul class="clean"><li>Caja</li><li>Banco Nación c/c</li><li>Mercado Pago</li><li>Mercaderías</li><li>Camión, computadora e inmueble</li></ul></article>
+        <article class="card"><div class="big-icon">📄</div><h3>Pasivo</h3><ul class="clean"><li>Deuda hipotecaria</li><li>Proveedores</li><li>Obligaciones impositivas</li><li>Otras deudas pendientes</li></ul></article>
+        <article class="card"><div class="big-icon">🏛️</div><h3>Patrimonio Neto</h3><ul class="clean"><li>Capital Social</li><li>Aportes integrados</li><li>Resultado del ejercicio</li></ul><p><b>Idea clave:</b> una base patrimonial sólida permite sostener el negocio.</p></article>
+      </div>
+    </section>
+
+    <section id="economica">
+      <h2 class="section-title"><span class="num">2</span> Situación económica</h2>
+      <div class="grid grid-2">
+        <article class="card">
+          <div class="big-icon">📈</div><h3>¿Ganó o perdió?</h3>
+          <p>La situación económica compara los ingresos obtenidos con los gastos necesarios para funcionar.</p>
+          <div class="bars">
+            <div><b>Ingresos por ventas</b><div class="bar"><div class="fill" data-width="88%"></div></div></div>
+            <div><b>Gastos y costos</b><div class="bar"><div class="fill pink" data-width="58%"></div></div></div>
+            <div><b>Resultado esperado</b><div class="bar"><div class="fill green" data-width="72%"></div></div></div>
+          </div>
+        </article>
+        <article class="card">
+          <div class="big-icon">🧾</div><h3>Elementos a explicar</h3>
+          <div class="compare">
+            <div class="panel"><h4 class="good">Ingresos</h4><p>Ventas de pinturas e intereses positivos por financiación.</p></div>
+            <div class="panel"><h4 class="warn">Gastos</h4><p>Alquileres, intereses negativos y gastos propios de la actividad.</p></div>
+          </div>
+          <p><b>Mensaje para exponer:</b> el resultado económico indica si la actividad principal fue rentable.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="financiera">
+      <h2 class="section-title"><span class="num">3</span> Situación financiera</h2>
+      <div class="grid grid-2">
+        <article class="card">
+          <div class="big-icon">💰</div><h3>Liquidez</h3>
+          <p>Analiza si Viva Color cuenta con dinero disponible para afrontar pagos y continuar operando.</p>
+          <ul class="clean"><li>Caja</li><li>Banco Nación cuenta corriente</li><li>Billetera electrónica Mercado Pago</li></ul>
+        </article>
+        <article class="card">
+          <div class="big-icon">🚦</div><h3>Tablero financiero</h3>
+          <div class="traffic"><div class="light green">OK</div><div class="light amber">!</div><div class="light red">X</div></div>
+          <p><b>Interpretación:</b> aunque una empresa venda y tenga patrimonio, debe cuidar el efectivo para pagar proveedores, impuestos y deudas.</p>
+          <details><summary>Guion breve para decir en clase</summary><p>“La situación financiera se enfoca en el dinero disponible. Una empresa puede tener ganancias, pero si no tiene efectivo suficiente puede tener problemas para cumplir sus obligaciones.”</p></details>
+        </article>
+      </div>
+    </section>
+
+    <section id="cierre">
+      <h2 class="section-title"><span class="num">✓</span> Conclusión final</h2>
+      <div class="card">
+        <p class="quote">Viva Color S.R.L. inicia su actividad con una base patrimonial importante, desarrolla operaciones comerciales y necesita controlar su liquidez para sostener el crecimiento.</p>
+        <div class="grid grid-3" style="margin-top:18px">
+          <div class="panel"><h4>🏢 Patrimonial</h4><p>Estructura sólida por aportes de socios y bienes incorporados.</p></div>
+          <div class="panel"><h4>📈 Económica</h4><p>Capacidad de generar ingresos mediante ventas de pinturas.</p></div>
+          <div class="panel"><h4>💰 Financiera</h4><p>Control de disponibilidades para cumplir pagos y obligaciones.</p></div>
+        </div>
+        <details style="margin-top:18px"><summary>Texto final para cerrar la exposición</summary><p>“La contabilidad permite transformar los datos de la empresa en información útil. En Viva Color S.R.L., el análisis patrimonial, económico y financiero ayuda a conocer su situación al 30/06/2026 y a tomar mejores decisiones.”</p></details>
+      </div>
+    </section>
+
+    <footer>Infografía interactiva · Viva Color S.R.L. · Fundamentos de Contabilidad 2026</footer>
+  </main>
+  <script>
+    const cards = document.querySelectorAll('.card');
+    const fills = document.querySelectorAll('.fill');
+    const dots = document.querySelectorAll('.dot');
+    const sections = [...document.querySelectorAll('header, section')];
+    const obs = new IntersectionObserver(entries=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){
+          e.target.classList.add('visible');
+          e.target.querySelectorAll?.('.fill').forEach(f=> f.style.width = f.dataset.width || '70%');
+        }
+      })
+    },{threshold:.18});
+    cards.forEach(c=>obs.observe(c));
+    window.addEventListener('scroll',()=>{
+      const max = document.body.scrollHeight - innerHeight;
+      document.getElementById('progress').style.width = (scrollY/max*100) + '%';
+      let current = 0;
+      sections.forEach((s,i)=>{ if(scrollY >= s.offsetTop - 220) current = i; });
+      dots.forEach((d,i)=> d.classList.toggle('active', i===current));
+    });
+    document.addEventListener('keydown', e=>{
+      if(e.key==='ArrowDown' || e.key==='PageDown') window.scrollBy({top:innerHeight*.88, behavior:'smooth'});
+      if(e.key==='ArrowUp' || e.key==='PageUp') window.scrollBy({top:-innerHeight*.88, behavior:'smooth'});
+    });
+  </script>
+</body>
+</html>
