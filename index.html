@@ -86,6 +86,18 @@
     .quote{font-size:clamp(24px,3.5vw,38px);font-weight:900;line-height:1.14;color:#0f172a;letter-spacing:-1px}
     .buttons{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:25px}.btn{border:0;border-radius:16px;padding:13px 18px;font-weight:900;cursor:pointer;background:white;color:#0f172a;box-shadow:var(--shadow)}.btn.dark{background:#111827;color:white}.btn:hover{transform:translateY(-2px)}
     details{background:#f8fafc;border-radius:20px;padding:17px;border:1px solid #e2e8f0}summary{font-weight:900;cursor:pointer;color:#0f172a}
+
+    .data-table{width:100%;border-collapse:collapse;margin-top:14px;overflow:hidden;border-radius:18px;font-size:15px}
+    .data-table th,.data-table td{padding:10px 12px;border-bottom:1px solid #e2e8f0;text-align:left}
+    .data-table th{background:#eef2ff;color:#1e293b;font-size:13px;text-transform:uppercase;letter-spacing:.5px}
+    .data-table td:last-child{text-align:right;font-weight:900;color:#0f172a}
+    .data-table tr:last-child td{border-bottom:0}
+    .highlight-total{background:#ecfeff;border:2px solid #67e8f9;border-radius:22px;padding:18px;margin-top:16px}
+    .highlight-total .money{font-size:clamp(28px,4vw,42px);font-weight:1000;color:#0f172a;letter-spacing:-1px}
+    .note{font-size:14px;color:#64748b;margin-top:10px}
+    .mini-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}
+    .mini-kpi{background:#f8fafc;border:1px solid #e2e8f0;border-radius:20px;padding:16px;text-align:center}
+    .mini-kpi b{display:block;font-size:24px;color:#0f172a}.mini-kpi span{font-size:13px;color:#64748b;font-weight:800;text-transform:uppercase}
     footer{text-align:center;color:white;padding:35px 0 15px;opacity:.85}
     @media(max-width:820px){.grid-3,.grid-2,.timeline,.equation,.compare{grid-template-columns:1fr}.sign{color:white}.nav{display:none}h1{letter-spacing:-2px}.hero{min-height:82vh}.wrap{padding-left:14px;padding-right:14px}}
     @media print{body{background:white}.hero{color:#0f172a;min-height:auto;padding:40px 0}.subtitle,.section-title,footer{color:#0f172a}.nav,.progress,.buttons,.scrollcue{display:none}.card{opacity:1;transform:none;box-shadow:none;border:1px solid #ddd;break-inside:avoid}.tl{box-shadow:none}.wrap{max-width:none}}
@@ -101,7 +113,7 @@
       <div>
         <div class="badge">🎨 Objeto Virtual de Aprendizaje · Fundamentos de Contabilidad</div>
         <h1>Viva Color S.R.L.</h1>
-        <p class="subtitle">Infografía interactiva para comunicar la situación patrimonial, económica y financiera al <b>30/06/2026</b>.</p>
+        <p class="subtitle">Infografía interactiva con datos concretos para comunicar la situación patrimonial, económica y financiera al <b>30/06/2026</b>.</p>
         <div class="chips">
           <div class="chip">🏢 Patrimonial</div><div class="chip">📈 Económica</div><div class="chip">💰 Financiera</div>
         </div>
@@ -139,9 +151,20 @@
         </div>
       </div>
       <div class="grid grid-3" style="margin-top:18px">
-        <article class="card"><div class="big-icon">📦</div><h3>Activo</h3><ul class="clean"><li>Caja</li><li>Banco Nación c/c</li><li>Mercado Pago</li><li>Mercaderías</li><li>Camión, computadora e inmueble</li></ul></article>
-        <article class="card"><div class="big-icon">📄</div><h3>Pasivo</h3><ul class="clean"><li>Deuda hipotecaria</li><li>Proveedores</li><li>Obligaciones impositivas</li><li>Otras deudas pendientes</li></ul></article>
-        <article class="card"><div class="big-icon">🏛️</div><h3>Patrimonio Neto</h3><ul class="clean"><li>Capital Social</li><li>Aportes integrados</li><li>Resultado del ejercicio</li></ul><p><b>Idea clave:</b> una base patrimonial sólida permite sostener el negocio.</p></article>
+        <article class="card"><div class="big-icon">📦</div><h3>Activo</h3>
+          <table class="data-table"><tr><th>Concepto</th><th>Importe</th></tr><tr><td>Caja</td><td>$400.000</td></tr><tr><td>Banco Nación c/c</td><td>$141.690</td></tr><tr><td>Billetera electrónica</td><td>$484.000</td></tr><tr><td>Clientes</td><td>$3.115.750</td></tr><tr><td>IVA crédito fiscal</td><td>$7.560</td></tr><tr><td>Mercaderías finales</td><td>$3.720.000</td></tr><tr><td>Terreno</td><td>$6.000.000</td></tr><tr><td>Rodados</td><td>$2.000.000</td></tr><tr><td>Equipos de oficina</td><td>$800.000</td></tr></table>
+          <div class="highlight-total"><div class="label">Total activo</div><div class="money">$16.669.000</div></div>
+        </article>
+        <article class="card"><div class="big-icon">📄</div><h3>Pasivo</h3>
+          <table class="data-table"><tr><th>Concepto</th><th>Importe</th></tr><tr><td>Proveedores</td><td>$0</td></tr><tr><td>Acreedores hipotecarios</td><td>$0</td></tr><tr><td>IVA a pagar</td><td>$0</td></tr></table>
+          <div class="highlight-total"><div class="label">Total pasivo</div><div class="money">$0</div></div>
+          <p class="note">La hipoteca, proveedores e IVA fueron cancelados antes del cierre.</p>
+        </article>
+        <article class="card"><div class="big-icon">🏛️</div><h3>Patrimonio Neto</h3>
+          <table class="data-table"><tr><th>Concepto</th><th>Importe</th></tr><tr><td>Capital Social</td><td>$15.000.000</td></tr><tr><td>Resultado del ejercicio</td><td>$1.669.000</td></tr></table>
+          <div class="highlight-total"><div class="label">Total patrimonio neto</div><div class="money">$16.669.000</div></div>
+          <p><b>Ecuación patrimonial:</b> Activo $16.669.000 = Pasivo $0 + Patrimonio Neto $16.669.000.</p>
+        </article>
       </div>
     </section>
 
@@ -149,21 +172,19 @@
       <h2 class="section-title"><span class="num">2</span> Situación económica</h2>
       <div class="grid grid-2">
         <article class="card">
-          <div class="big-icon">📈</div><h3>¿Ganó o perdió?</h3>
-          <p>La situación económica compara los ingresos obtenidos con los gastos necesarios para funcionar.</p>
-          <div class="bars">
-            <div><b>Ingresos por ventas</b><div class="bar"><div class="fill" data-width="88%"></div></div></div>
-            <div><b>Gastos y costos</b><div class="bar"><div class="fill pink" data-width="58%"></div></div></div>
-            <div><b>Resultado esperado</b><div class="bar"><div class="fill green" data-width="72%"></div></div></div>
-          </div>
+          <div class="big-icon">📈</div><h3>Resultado económico</h3>
+          <p>La empresa obtuvo ingresos por ventas e intereses. Luego se restaron costos y gastos del primer ejercicio.</p>
+          <table class="data-table"><tr><th>Concepto</th><th>Importe</th></tr><tr><td>Ventas de bienes</td><td>$3.425.000</td></tr><tr><td>Intereses positivos</td><td>$25.000</td></tr><tr><td><b>Total ingresos</b></td><td>$3.450.000</td></tr><tr><td>Costo de ventas</td><td>-$1.330.000</td></tr><tr><td>Alquileres</td><td>-$300.000</td></tr><tr><td>Intereses negativos</td><td>-$90.000</td></tr><tr><td>Reparación y mantenimiento</td><td>-$25.000</td></tr><tr><td>Gastos bancarios</td><td>-$36.000</td></tr></table>
+          <div class="highlight-total"><div class="label">Resultado del ejercicio</div><div class="money">$1.669.000</div></div>
         </article>
         <article class="card">
-          <div class="big-icon">🧾</div><h3>Elementos a explicar</h3>
-          <div class="compare">
-            <div class="panel"><h4 class="good">Ingresos</h4><p>Ventas de pinturas e intereses positivos por financiación.</p></div>
-            <div class="panel"><h4 class="warn">Gastos</h4><p>Alquileres, intereses negativos y gastos propios de la actividad.</p></div>
+          <div class="big-icon">🧾</div><h3>Resultado bruto y margen</h3>
+          <div class="mini-kpis"><div class="mini-kpi"><span>Ventas</span><b>$3.425.000</b></div><div class="mini-kpi"><span>Costo</span><b>$1.330.000</b></div><div class="mini-kpi"><span>Resultado bruto</span><b>$2.095.000</b></div></div>
+          <div class="bars">
+            <div><b>Margen bruto aproximado: 61,17%</b><div class="bar"><div class="fill green" data-width="61%"></div></div></div>
+            <div><b>Rentabilidad sobre ventas: 48,73%</b><div class="bar"><div class="fill" data-width="49%"></div></div></div>
           </div>
-          <p><b>Mensaje para exponer:</b> el resultado económico indica si la actividad principal fue rentable.</p>
+          <p><b>Mensaje para exponer:</b> Viva Color logró un resultado positivo porque las ventas superaron ampliamente los costos y gastos del período.</p>
         </article>
       </div>
     </section>
@@ -172,15 +193,17 @@
       <h2 class="section-title"><span class="num">3</span> Situación financiera</h2>
       <div class="grid grid-2">
         <article class="card">
-          <div class="big-icon">💰</div><h3>Liquidez</h3>
-          <p>Analiza si Viva Color cuenta con dinero disponible para afrontar pagos y continuar operando.</p>
-          <ul class="clean"><li>Caja</li><li>Banco Nación cuenta corriente</li><li>Billetera electrónica Mercado Pago</li></ul>
+          <div class="big-icon">💰</div><h3>Liquidez disponible</h3>
+          <p>El dinero disponible al cierre surge del arqueo de caja, la cuenta bancaria y la billetera electrónica.</p>
+          <table class="data-table"><tr><th>Disponibilidad</th><th>Importe</th></tr><tr><td>Caja</td><td>$400.000</td></tr><tr><td>Banco Nación c/c</td><td>$141.690</td></tr><tr><td>Billetera electrónica</td><td>$484.000</td></tr></table>
+          <div class="highlight-total"><div class="label">Total disponibilidades</div><div class="money">$1.025.690</div></div>
         </article>
         <article class="card">
           <div class="big-icon">🚦</div><h3>Tablero financiero</h3>
           <div class="traffic"><div class="light green">OK</div><div class="light amber">!</div><div class="light red">X</div></div>
-          <p><b>Interpretación:</b> aunque una empresa venda y tenga patrimonio, debe cuidar el efectivo para pagar proveedores, impuestos y deudas.</p>
-          <details><summary>Guion breve para decir en clase</summary><p>“La situación financiera se enfoca en el dinero disponible. Una empresa puede tener ganancias, pero si no tiene efectivo suficiente puede tener problemas para cumplir sus obligaciones.”</p></details>
+          <table class="data-table"><tr><th>Indicador</th><th>Dato</th></tr><tr><td>Créditos a cobrar</td><td>$3.115.750</td></tr><tr><td>Deudas a pagar al cierre</td><td>$0</td></tr><tr><td>Liquidez inmediata</td><td>$1.025.690</td></tr></table>
+          <p><b>Interpretación:</b> al 30/06/2026 la empresa no presenta deudas pendientes relevantes y conserva dinero disponible, además de créditos a cobrar por ventas.</p>
+          <details><summary>Guion breve para decir en clase</summary><p>“La situación financiera es favorable: Viva Color cerró el ejercicio con $1.025.690 disponibles, sin proveedores ni IVA a pagar, y con $3.115.750 pendientes de cobro a clientes.”</p></details>
         </article>
       </div>
     </section>
@@ -190,11 +213,11 @@
       <div class="card">
         <p class="quote">Viva Color S.R.L. inicia su actividad con una base patrimonial importante, desarrolla operaciones comerciales y necesita controlar su liquidez para sostener el crecimiento.</p>
         <div class="grid grid-3" style="margin-top:18px">
-          <div class="panel"><h4>🏢 Patrimonial</h4><p>Estructura sólida por aportes de socios y bienes incorporados.</p></div>
-          <div class="panel"><h4>📈 Económica</h4><p>Capacidad de generar ingresos mediante ventas de pinturas.</p></div>
-          <div class="panel"><h4>💰 Financiera</h4><p>Control de disponibilidades para cumplir pagos y obligaciones.</p></div>
+          <div class="panel"><h4>🏢 Patrimonial</h4><p>Activo y Patrimonio Neto: <b>$16.669.000</b>. No registra pasivo pendiente al cierre.</p></div>
+          <div class="panel"><h4>📈 Económica</h4><p>Resultado positivo del ejercicio: <b>$1.669.000</b>.</p></div>
+          <div class="panel"><h4>💰 Financiera</h4><p>Disponibilidades: <b>$1.025.690</b> y créditos a cobrar: <b>$3.115.750</b>.</p></div>
         </div>
-        <details style="margin-top:18px"><summary>Texto final para cerrar la exposición</summary><p>“La contabilidad permite transformar los datos de la empresa en información útil. En Viva Color S.R.L., el análisis patrimonial, económico y financiero ayuda a conocer su situación al 30/06/2026 y a tomar mejores decisiones.”</p></details>
+        <details style="margin-top:18px"><summary>Texto final para cerrar la exposición</summary><p>“La contabilidad permite transformar los datos en información útil. En Viva Color S.R.L., el análisis muestra un patrimonio neto de $16.669.000, un resultado positivo de $1.669.000 y disponibilidades por $1.025.690 al 30/06/2026. Esta información ayuda a evaluar la continuidad y a tomar mejores decisiones.”</p></details>
       </div>
     </section>
 
